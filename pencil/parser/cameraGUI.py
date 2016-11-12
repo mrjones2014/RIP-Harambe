@@ -3,7 +3,7 @@ import threading
 import PIL.Image
 import PIL.ImageTk
 import Tkinter as tk
-from Tkinter import *
+from tkFileDialog import askopenfilename
 import cv2
 import imutils
 
@@ -35,7 +35,7 @@ class imageCapture:
         self.thread.start()
 
         # set a callback to handle when the window is closed
-        self.root.wm_title("Pencil Parser Capture")
+        self.root.wm_title("Face Capture")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
     def videoLoop(self):
@@ -47,7 +47,7 @@ class imageCapture:
                 # grab the frame from the video stream and resize it to
                 # have a maximum width of 600 pixels
                 _, self.frame = self.vs.read()
-                self.frame = imutils.resize(self.frame, width=600)
+                self.frame = imutils.resize(self.frame, width=800)
 
                 # OpenCV represents images in BGR order; however PIL
                 # represents images in RGB order, so we need to swap
@@ -79,7 +79,7 @@ class imageCapture:
 
         # save the file
         cv2.imwrite(filename, self.frame.copy())
-        print "[INFO] saved test image"
+        print "[INFO] saved image"
 
     def onClose(self):
         # cleanup the camera, and allow the rest of
@@ -92,7 +92,10 @@ class imageCapture:
 
 
 def test(prevWin):
-    print "testing file import next"
+
+    tk.Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
+    userFile = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
+    print userFile
 
 
 def camCapture(prevWin):
@@ -106,7 +109,7 @@ def camCapture(prevWin):
     cv2.destroyAllWindows()
 
 window = tk.Tk()
-window.wm_title("Welcome to Pencil Parser!")
+window.wm_title("Welcome to Face Swapper!")
 
 filePic = tk.PhotoImage(file="folder.png")
 cameraPic = tk.PhotoImage(file="camera.png")
@@ -121,4 +124,4 @@ window.mainloop()
 
 
 
-print "testing after output"    #this doesn't actually print :/
+print "testing after output"    #this doesn't usually print :/
