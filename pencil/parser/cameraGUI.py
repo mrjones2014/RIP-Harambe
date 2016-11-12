@@ -76,10 +76,12 @@ class imageCapture:
 
     def takeSnapshot(self):
         filename = "test.jpg"
-        p = os.path.sep.join(filename)
+        # path = os.path.abspath(self)
+        # print path
+        # p = os.path.sep.join(filename)
 
         # save the file
-        cv2.imwrite(p, self.frame.copy())
+        cv2.imwrite(filename, self.frame.copy())
         print "[INFO] saved test image"
 
     def onClose(self):
