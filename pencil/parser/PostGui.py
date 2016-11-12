@@ -50,7 +50,7 @@ def emailFile(fileString):
     password = tkSimpleDialog.askstring("Email From...", "What's your password for the email at " + youremailusername +"?")
     server.login(youremailusername, password)
 
-    target = tkSimpleDialog.askstring("Email From...", "What is your target's Email address?")
+    target = tkSimpleDialog.askstring("Email To...", "What is your target's Email address?")
     server.sendmail(youremailusername, target, fileString)
 
 
