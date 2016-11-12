@@ -1,9 +1,9 @@
 import os
 import threading
-import tkMessageBox
-from PIL import Image
-from PIL import ImageTk
+import PIL.Image
+import PIL.ImageTk
 import Tkinter as tk
+from Tkinter import *
 import cv2
 import imutils
 
@@ -53,8 +53,8 @@ class imageCapture:
                 # represents images in RGB order, so we need to swap
                 # the channels, then convert to PIL and ImageTk format
                 image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
-                image = Image.fromarray(image)
-                image = ImageTk.PhotoImage(image)
+                image = PIL.Image.fromarray(image)
+                image = PIL.ImageTk.PhotoImage(image)
 
                 # if the panel is not None, we need to initialize it
                 if self.panel is None:
@@ -70,8 +70,9 @@ class imageCapture:
         except RuntimeError, e:
             print("[INFO] caught a RuntimeError")
 
+
     def takeSnapshot(self):
-        filename = "test.jpg"
+        filename = "output.png"
         # path = os.path.abspath(self)
         # print path
         # p = os.path.sep.join(filename)
@@ -85,13 +86,36 @@ class imageCapture:
         # the quit process to continue
         print "[INFO] closing..."
         self.stopEvent.set()
+        self.root.destroy()
         self.root.quit()
         cv2.destroyAllWindows()
 
-vs = cv2.VideoCapture(0)
 
-picture = imageCapture(vs)
-picture.root.mainloop()
+def test(prevWin):
+    print "testing file import soon"
 
-cv2.destroyAllWindows()
-cv2.waitKey(1)
+
+def camCapture(prevWin):
+    prevWin.destroy()
+
+    vs = cv2.VideoCapture(0)
+
+    picture = imageCapture(vs)
+    picture.root.mainloop()
+
+    cv2.destroyAllWindows()
+
+window = tk.Tk()
+window.wm_title("Welcome to Pencil Parser!")
+
+fileOption = tk.Button(window, text="Import an Image File", command=lambda: test(window))
+fileOption.pack(side="left", expand="yes", padx=10, pady=10)
+
+cameraOption = tk.Button(window, text="Take a Picture!", command=lambda: camCapture(window))
+cameraOption.pack(side="left", expand="yes", padx=10, pady=10)
+
+window.mainloop()
+
+
+
+print "testing after output"
