@@ -108,14 +108,17 @@ def camCapture(prevWin):
 window = tk.Tk()
 window.wm_title("Welcome to Pencil Parser!")
 
-fileOption = tk.Button(window, text="Import an Image File", command=lambda: test(window))
+filePic = tk.PhotoImage(file="folder.png")
+cameraPic = tk.PhotoImage(file="camera.png")
+
+fileOption = tk.Button(window, text="Import an Image File", image=filePic, compound="top", command=lambda: test(window))
 fileOption.pack(side="left", expand="yes", padx=10, pady=10)
 
-cameraOption = tk.Button(window, text="Take a Picture!", command=lambda: camCapture(window))
+cameraOption = tk.Button(window, text="Take a Picture!", image=cameraPic, compound="top", command=lambda: camCapture(window))
 cameraOption.pack(side="left", expand="yes", padx=10, pady=10)
 
 window.mainloop()
 
 
 
-print "testing after output"
+print "testing after output"    #this doesn't actually print :/
