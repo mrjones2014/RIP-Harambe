@@ -32,7 +32,7 @@ def sendToDrive(fileString):
     drive = GoogleDrive(gauth)
     fileName = tkSimpleDialog.askstring("File Name", "Name of the file?")
     f = drive.CreateFile({'title': fileName + ".txt"})
-    f.SetContentString("sup guys.")
+    f.SetContentString(fileString)
     f.Upload()
 
 
