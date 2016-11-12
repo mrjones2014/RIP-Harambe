@@ -38,7 +38,6 @@ def sendToDrive(fileString):
 
 class PostGui:
     def __init__(self, file):
-        print("1")
         self.fileString = file
         window.maxsize(150, 150)
         window.minsize(150, 150)
