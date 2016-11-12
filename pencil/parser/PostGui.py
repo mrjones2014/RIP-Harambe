@@ -16,7 +16,11 @@ from sendgrid import *
 
 
 
-window = Tk("Pencil Parser")
+# import gdata.client, gdata.docs.client, gdata.docs.data, os.path, atom.data
+# import tkMessageBox
+
+window = Tk()
+window.wm_title("Pencil Parser")
 
 fileString = ''
 def copyClipboard(fileString):
