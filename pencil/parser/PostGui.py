@@ -5,12 +5,12 @@ from pydrive.drive import GoogleDrive
 import tkSimpleDialog
 from Tkinter import *
 import tkFileDialog as fd
-from email.mime.text import MIMEText
-import gdata.client, gdata.docs.client, gdata.docs.data, os.path, atom.data
-import tkMessageBox
+# from email.mime.text import MIMEText
+# import gdata.client, gdata.docs.client, gdata.docs.data, os.path, atom.data
+# import tkMessageBox
 import smtplib
-from sendgrid.helpers import mail
-from sendgrid import *
+# from sendgrid.helpers import mail
+# from sendgrid import *
 
 
 
@@ -47,7 +47,7 @@ def emailFile(fileString):
     server.ehlo()
 
     youremailusername = tkSimpleDialog.askstring("Email From...", "What is your Email address?")
-    password = tkSimpleDialog.askstring("Email From...", "What's your password for the email at " + youremailusername +"?")
+    password = tkSimpleDialog.askstring("Email From...", "What's your password for the email at " + youremailusername +"?", show='*')
     server.login(youremailusername, password)
 
     target = tkSimpleDialog.askstring("Email To...", "What is your target's Email address?")

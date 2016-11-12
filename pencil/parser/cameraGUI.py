@@ -4,10 +4,9 @@ import tkMessageBox
 from PIL import Image
 from PIL import ImageTk
 import Tkinter as tk
-
-
 import cv2
 import imutils
+
 
 class imageCapture:
     def __init__(self, vs):
@@ -39,19 +38,16 @@ class imageCapture:
         self.root.wm_title("Pencil Parser Capture")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
-
     def videoLoop(self):
-        # DISCLAIMER:
-        # I'm not a GUI developer, nor do I even pretend to be. This
         # try/except statement is a pretty ugly hack to get around
         # a RunTime error that Tkinter throws due to threading
         try:
             # keep looping over frames until we are instructed to stop
             while not self.stopEvent.is_set():
                 # grab the frame from the video stream and resize it to
-                # have a maximum width of 300 pixels
+                # have a maximum width of 600 pixels
                 _, self.frame = self.vs.read()
-                self.frame = imutils.resize(self.frame, width=300)
+                self.frame = imutils.resize(self.frame, width=600)
 
                 # OpenCV represents images in BGR order; however PIL
                 # represents images in RGB order, so we need to swap
@@ -93,8 +89,6 @@ class imageCapture:
         cv2.destroyAllWindows()
 
 vs = cv2.VideoCapture(0)
-
-# cv2.waitKey(1)
 
 picture = imageCapture(vs)
 picture.root.mainloop()
