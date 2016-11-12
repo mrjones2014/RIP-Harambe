@@ -92,7 +92,7 @@ class imageCapture:
 
 
 def test(prevWin):
-    print "testing file import soon"
+    print "testing file import next"
 
 
 def camCapture(prevWin):
