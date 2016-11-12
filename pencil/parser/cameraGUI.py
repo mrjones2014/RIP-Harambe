@@ -36,7 +36,7 @@ class imageCapture:
         self.thread.start()
 
         # set a callback to handle when the window is closed
-        self.root.wm_title("PyImageSearch PhotoBooth")
+        self.root.wm_title("Pencil Parser Capture")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
 
@@ -74,28 +74,25 @@ class imageCapture:
         except RuntimeError, e:
             print("[INFO] caught a RuntimeError")
 
-
     def takeSnapshot(self):
         filename = "test.jpg"
-        p = os.path.sep.filename
+        p = os.path.sep.join(filename)
 
         # save the file
         cv2.imwrite(p, self.frame.copy())
-        print("[INFO] saved {}".format(filename))
-
+        print "[INFO] saved test image"
 
     def onClose(self):
-        # set the stop event, cleanup the camera, and allow the rest of
+        # cleanup the camera, and allow the rest of
         # the quit process to continue
-        print("[INFO] closing...")
+        print "[INFO] closing..."
         self.stopEvent.set()
-        # self.vs.stop()
         self.root.quit()
         cv2.destroyAllWindows()
 
 vs = cv2.VideoCapture(0)
 
-cv2.waitKey(1)
+# cv2.waitKey(1)
 
 picture = imageCapture(vs)
 picture.root.mainloop()

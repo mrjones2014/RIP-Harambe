@@ -5,16 +5,11 @@ from pydrive.drive import GoogleDrive
 import tkSimpleDialog
 from Tkinter import *
 import tkFileDialog as fd
-import gdata.client, gdata.docs.client, gdata.docs.data, os.path, atom.data
-import tkMessageBox
+# import gdata.client, gdata.docs.client, gdata.docs.data, os.path, atom.data
+# import tkMessageBox
 
-
-
-
-
-
-
-window = Tk("Pencil Parser")
+window = Tk()
+window.wm_title("Pencil Parser")
 
 fileString = ''
 def copyClipboard(window, fileString):
