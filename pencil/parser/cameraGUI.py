@@ -38,15 +38,6 @@ class imageCapture:
         self.root.wm_title("Pencil Parser Capture")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
-    def center(self):
-        self.update_idletasks()
-        w = self.winfo_screenwidth()
-        h = self.winfo_screenheight()
-        size = tuple(int(_) for _ in self.geometry().split('+')[0].split('x'))
-        x = w / 2 - size[0] / 2
-        y = h / 2 - size[1] / 2
-        self.geometry("%dx%d+%d+%d" % (size + (x, y)))
-
     def videoLoop(self):
         # try/except statement is a pretty ugly hack to get around
         # a RunTime error that Tkinter throws due to threading
@@ -57,8 +48,6 @@ class imageCapture:
                 # have a maximum width of 600 pixels
                 _, self.frame = self.vs.read()
                 self.frame = imutils.resize(self.frame, width=600)
-
-                # self.center(self)
 
                 # OpenCV represents images in BGR order; however PIL
                 # represents images in RGB order, so we need to swap
