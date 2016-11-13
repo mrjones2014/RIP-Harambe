@@ -6,10 +6,14 @@ import Tkinter as tk
 from tkFileDialog import askopenfilename
 import cv2
 import imutils
+import FaceSwapper
+from pygame import mixer
 
 
 class imageCapture:
     def __init__(self, vs):
+        mixer.init()
+        mixer.music.load("rick_ross_push_it.ogg")
         # store the video stream object and output path, then initialize
         # the most recently read frame, thread for reading frames, and
         # the thread stop event
@@ -18,15 +22,26 @@ class imageCapture:
         self.frame = None
         self.thread = None
         self.stopEvent = None
+        self.IsPaused = False
 
         # initialize the root window and image panel
         self.root = tk.Tk()
         self.panel = None
 
+        self.mode = 0
+
         # create a button, that when pressed, will take the current
         # frame and save it to file
         btn = tk.Button(self.root, text="Snapshot!", command=self.takeSnapshot)
         btn.pack(side="bottom", fill="both", expand="yes", padx=10, pady=10)
+
+        rickrossbutton = tk.Button(self.root, text="Rick Ross", command=self.rickrossmode)
+        trumpbutton = tk.Button(self.root, text="Trump", command=self.trumpmode)
+        harambebutton = tk.Button(self.root, text="HARAMBE", command=self.harambemode)
+
+        rickrossbutton.pack(side="bottom", fill="both", expand="yes", padx=10, pady=10)
+        trumpbutton.pack(side="bottom", fill="both", expand="yes", padx=10, pady=10)
+        harambebutton.pack(side="bottom", fill="both", expand="yes", padx=10, pady=10)
 
         # start a thread that constantly pools the video sensor for
         # the most recently read frame
@@ -38,6 +53,18 @@ class imageCapture:
         self.root.wm_title("Face Capture")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
+    def rickrossmode(self):
+        self.mode = 1
+
+    def trumpmode(self):
+        self.mode = 2
+
+    def harambemode(self):
+        self.mode = 3
+
+    def nonemode(self):
+        self.mode = 0
+
     def videoLoop(self):
         # try/except statement is a pretty ugly hack to get around
         # a RunTime error that Tkinter throws due to threading
@@ -48,6 +75,21 @@ class imageCapture:
                 # have a maximum width of 600 pixels
                 _, self.frame = self.vs.read()
                 self.frame = imutils.resize(self.frame, width=800)
+
+                if self.mode == 1:
+                    if self.IsPaused:
+                        mixer.music.play()
+                        self.IsPaused = False
+                    FaceSwapper.rickrossface(self.frame)
+                elif self.mode == 2:
+                    FaceSwapper.trumpface(self.frame)
+                elif self.mode == 3:
+                    FaceSwapper.harambeface(self.frame)
+
+                if self.mode != 1:
+                    if not self.IsPaused:
+                        mixer.music.pause()
+                        self.IsPaused = True
 
                 # OpenCV represents images in BGR order; however PIL
                 # represents images in RGB order, so we need to swap
@@ -108,22 +150,24 @@ def camCapture(prevWin):
 
     cv2.destroyAllWindows()
 
-window = tk.Tk()
-window.wm_title("Welcome to Face Swapper!")
 
-filePic = tk.PhotoImage(file="folder.png")
-cameraPic = tk.PhotoImage(file="camera.png")
+if __name__ == "__main__":
+    window = tk.Tk()
+    window.wm_title("Welcome to Face Swapper!")
 
-fileOption = tk.Button(window, text="Import an Image File", image=filePic, compound="top", command=lambda: test(window))
-fileOption.grid(row=0, column=0, padx=10, pady=10)
+    filePic = tk.PhotoImage(file="folder.png")
+    cameraPic = tk.PhotoImage(file="camera.png")
 
-cameraOption = tk.Button(window, text="Take a Picture!", image=cameraPic, compound="top", command=lambda: camCapture(window))
-cameraOption.grid(row=0, column=1, padx=10, pady=10)
+    fileOption = tk.Button(window, text="Import an Image File", image=filePic, compound="top", command=lambda: test(window))
+    fileOption.grid(row=0, column=0, padx=10, pady=10)
 
-label = tk.Message(window, text="Choose a form of input", width=1000).grid(row=1, columnspan=2)
+    cameraOption = tk.Button(window, text="Take a Picture!", image=cameraPic, compound="top", command=lambda: camCapture(window))
+    cameraOption.grid(row=0, column=1, padx=10, pady=10)
 
-window.mainloop()
+    label = tk.Message(window, text="Choose a form of input", width=1000).grid(row=1, columnspan=2)
+
+    window.mainloop()
 
 
 
-print "testing after output"    #this doesn't usually print :/
+    print "testing after output"    #this doesn't usually print :/
