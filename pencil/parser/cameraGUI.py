@@ -93,8 +93,8 @@ class imageCapture:
 
 def test(prevWin):
 
-    tk.Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
-    userFile = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
+    tk.Tk().withdraw()              # we don't want a full GUI, so keep the root window from appearing
+    userFile = askopenfilename()    # show an "Open" dialog box and return the path to the selected file
     print userFile
 
 
@@ -115,10 +115,12 @@ filePic = tk.PhotoImage(file="folder.png")
 cameraPic = tk.PhotoImage(file="camera.png")
 
 fileOption = tk.Button(window, text="Import an Image File", image=filePic, compound="top", command=lambda: test(window))
-fileOption.pack(side="left", expand="yes", padx=10, pady=10)
+fileOption.grid(row=0, column=0, padx=10, pady=10)
 
 cameraOption = tk.Button(window, text="Take a Picture!", image=cameraPic, compound="top", command=lambda: camCapture(window))
-cameraOption.pack(side="left", expand="yes", padx=10, pady=10)
+cameraOption.grid(row=0, column=1, padx=10, pady=10)
+
+label = tk.Message(window, text="Choose a form of input", width=1000).grid(row=1, columnspan=2)
 
 window.mainloop()
 
