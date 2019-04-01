@@ -1,7 +1,7 @@
 # RIP-Harambe
 Hackital hackathon project
 
-Have you ever woken up and really wanted to be Harambe? What about Rick Ross? Or maybe you just want to laugh and Donald Trump's ridiculoud toupee? If you're like me, it's a weekly occurence.
+Have you ever woken up and really wanted to be Harambe? What about Rick Ross? Or maybe you just want to laugh and Donald Trump's ridiculous toupee? If you're like me, it's a weekly occurence.
 
 Well now, **your dreams can come true!!**
 
